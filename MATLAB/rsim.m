@@ -63,20 +63,6 @@ day = 1000;
 pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
 xlim([0 220])
 ylim([0 100])
-% %% find out production
-% days = 10
-% s = get_parameters;
-% p = zeros(1,days+1);
-% ip = zeros(1,days+1);
-% for d=1:days+1
-%     p(d) = 22.4.*86400.*inflow_gas_production(s.kf,s.mu,mean(u(:,d)),s.T,s.Pwf,s.re,s.rw,s.Pc,s.Tc)./1000;
-%     ip(d)= 22.4.*86400.*interporosity_flow(s.lx,s.km,mean(u(:,1,d)),mean(u(:,2,d)),s.T,s.Pc,s.Tc,s.mu)./1000;
-% end
-% %%
-% figure
-% hold on
-% semilogy([1:days+1],cumsum(p)+cumsum(ip))
-% hold off
 %%
 lm = 20;
 [X,Y] = meshgrid([0:.1:220],[50.05:.1:100]);
