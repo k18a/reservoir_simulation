@@ -7,6 +7,7 @@ g = geomet(lm, h, lf, wr);
 %% create PDE model
 reservoir = createpde(1); % 1 - m , 2 - f
 geometryFromEdges(reservoir,g); % geometryFromEdges for 2-D
+%%
 pdegplot(reservoir,'FaceLabels','on');
 %% generate mesh
 mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);
@@ -77,10 +78,13 @@ ylim([0 100])
 % semilogy([1:days+1],cumsum(p)+cumsum(ip))
 % hold off
 %%
-[X,Y] = meshgrid(1:.1:220,1:.1:100);
+lm = 20;
+[X,Y] = meshgrid([0:.1:220],[50.05:.1:100]);
 %%
-uintrp = interpolateSolution(simulation_results,X,Y,1);
+day = 1000;
+uintrp = interpolateSolution(simulation_results,X,Y,day);
 v = reshape(uintrp,size(X));
+%%
 figure
 surf(X,Y,v,'LineStyle','none')
 axis equal
