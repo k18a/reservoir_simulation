@@ -8,7 +8,7 @@ g = geomet(lm, h, lf, wr);
 reservoir = createpde(1); % 1 - m , 2 - f
 geometryFromEdges(reservoir,g); % geometryFromEdges for 2-D
 %%
-pdegplot(reservoir,'EdgeLabels','on');
+pdegplot(reservoir,'FaceLabels','on');
 %% generate mesh
 mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);
 % view mesh
@@ -30,10 +30,10 @@ coeff = specifyCoefficients(reservoir,'m',0,...
                            'Face',[2:2:20,23:2:41]);
 % boundary conditions
 bc_w = applyBoundaryCondition(reservoir,...
-    'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pi);
+    'dirichlet', 'Edge', [47:88], 'u', s.Pi);
     %'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pi);
 bc_b = applyBoundaryCondition(reservoir,...
-    'neumann', 'Edge', [1:46,47:2:67,68:2:88], 'g', [0], 'q', [0]);
+    'neumann', 'Edge', [1:46], 'g', [0], 'q', [0]);
 %%
 % initial conditions
 ic = setInitialConditions(reservoir,s.Pi);
@@ -50,8 +50,8 @@ colormap gray
 %%
 % boundary conditions
 bc_w = applyBoundaryCondition(reservoir,...
-    'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pwf);
-days = 10000;
+    'dirichlet', 'Edge', [47:88], 'u', s.Pwf);
+days = 1000;
 tlist = [1:86400:((86400*days))];
 ic = setInitialConditions(reservoir,initial_conditions);
 %% solve pde
@@ -59,14 +59,14 @@ simulation_results = solvepde(reservoir,tlist);
 %% get solution
 u = simulation_results.NodalSolution;
 %% plot solution
-day = 10000;
-figure
+day = 1000;
+
 pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
 xlim([0 220])
 ylim([0 100])
 %%
 load('lengths.mat');
-days = [0,1,10,500,1000,10000];
+days = [0,10,100,1000];
 
 ca = [];
 cf = [];
@@ -81,7 +81,7 @@ for day = days
         y = [0:0.05,49.95,50.05:.5:100];
         [X,Y] = meshgrid(x,y);
         if day == 0
-            uintrp = ones(size(X)).*s.Pi;
+            uintrp = ones(si).*s.Pi;
         else
 
             uintrp = interpolateSolution(simulation_results,X,Y,day);
@@ -104,10 +104,10 @@ for day = days
     for i = 1:10
         x = [mat_l(i,1):.5:mat_l(i,2)];
         y = [0:0.05,49.95,50.05:.5:100];
-        [X,Y] = meshgrid(x,y);
         if day == 0
-            uintrp = ones(size(X)).*s.Pi;
+            uintrp = ones(length(x),length(y)).*s.Pi;
         else
+            [X,Y] = meshgrid(x,y);
             uintrp = interpolateSolution(simulation_results,X,Y,day);
         end
         p = reshape(uintrp,size(X));
@@ -118,15 +118,7 @@ for day = days
     cf = [cf, cfm+cff];
     ct = [ct, cam+cfm+cff];
 end
-figure
-plot(days,ct)
-title('total')
-figure
-plot(days,ca)
-title('adsorbed')
-figure
-plot(days,cf)
-title('free')
+
 %%
 
 [X,Y] = meshgrid([20:.05:20.1],[50.05:.5:100]);
@@ -145,4 +137,4 @@ axis equal
 view(0,90)
 colorbar
 %% integrate
-I = trapz(y,trapz(x,v,2));
+I = trapz(y,trapz(x,v,2))

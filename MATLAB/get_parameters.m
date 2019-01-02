@@ -8,12 +8,12 @@ s.Ly = 100;
 
 % declare matrix parameters
 s.phim = 0.05;
-s.km = 1e-5*9.869233e-13*1e-3;
+s.km = 1e-5*9.869233e-13;
 s.rhos = 5e-4;
 
 % declare fracture parameters
 s.phif = 0.001;
-s.kf = 1*9.869233e-13*1e-3;
+s.kf = 1*9.869233e-13*1e-4;
 s.lx = 20;
 s.fw = 0.1;
 
