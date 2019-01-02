@@ -59,7 +59,7 @@ simulation_results = solvepde(reservoir,tlist);
 %% get solution
 u = simulation_results.NodalSolution;
 %% plot solution
-day = 10000;
+day = 100;
 figure
 pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
 xlim([0 220])
