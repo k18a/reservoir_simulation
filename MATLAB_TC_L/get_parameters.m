@@ -3,31 +3,30 @@ function s = get_parameters
 %   Detailed explanation goes here
 
 % declare reservoir dimensions
-s.Lx = 200;
-s.Ly = 100;
+s.t = 500;
 
 % declare matrix parameters
-s.phim = 0.05;
-s.km = 1e-6*9.869233e-13;
-s.rhos = 5e-4;
+s.phim = 0.01;
+s.km = 5e-6*9.869233e-13;
+s.rhos = (1/(.5*1e-3));
 
 % declare fracture parameters
-s.phif = 0.001;
-s.kf = 1*9.869233e-13*1e-4; % multiply by e04 to accout for length
+s.phif = 0.05;
+s.kf = 1*9.869233e-13*1e-4; % multiply by e04 to accout for width
 s.lx = 20;
 s.fw = 0.1;
 
 % declare well inflow parameters
 s.rw = 0.1;
-s.re = 50;
+s.re = 100;
 
 % delcare fluid parameters
-s.mu = 1e-5;
 s.Tc = 190.55;
 s.Pc = 4599200;
+s.MW = 16.04e-3;
 
 % declare reservoir parameters
-s.T = 300;
+s.T = 333.15;
 s.Pi = 6101325;
 s.Pwf = 3101325;
 

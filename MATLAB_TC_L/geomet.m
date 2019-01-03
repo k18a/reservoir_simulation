@@ -1,10 +1,5 @@
 function g = geomet(lm, h, lf, wr)
 
-lm = 20;
-h = 100;
-lf = 0.1;
-wr = 0.05;
-
 m1 = [3
     4
     lm*0

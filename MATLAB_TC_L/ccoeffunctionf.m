@@ -6,4 +6,6 @@ cmatrix = zeros(n1,nr);
 
 s = get_parameters;
 
-cmatrix(1,:) = rho_mahmood(state.u(1,:),s.T,s.Pc,s.Tc).*s.kf./s.mu;
+rho = rho_mahmood(state.u(1,:),s.T,s.Pc,s.Tc);
+mu = mu_lee(s.T,rho,s.MW);
+cmatrix(1,:) = rho.*s.kf./mu;

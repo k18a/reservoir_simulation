@@ -10,12 +10,12 @@ if state.time > 100
     p = state.u(1,:);
     pm = mean(p(ismember(location.subdomain,[1:2:21,22:2:42])));
     pf = mean(p(ismember(location.subdomain,[2:2:20,23:2:41])));
+    rho = rho_mahmood(pm,s.T,s.Pc,s.Tc);
+    mu = mu_lee(s.T,rho,s.MW);
     flow_coupling = s.Lx.*s.Ly.*interporosity_flow(...
-        s.lx,s.km,pm,pf,s.T,s.Pc,s.Tc,s.mu);
-%     production = s.Lx.*inflow_gas_production(s.km,...
-%         s.mu,pm,s.T,s.Pwf,s.re,s.rw,s.Pc,s.Tc);
+        s.lx,s.km,pm,pf,s.T,s.Pc,s.Tc,mu);
 
-    f(1,:) = - flow_coupling;% - production;
+    f(1,:) = - flow_coupling;
     
 end 
 
