@@ -1,3 +1,6 @@
+%% figures
+figures = true;
+% figures = false;
 %% define geometry
 lm = 20;
 h = 100;
@@ -8,11 +11,16 @@ g = geomet(lm, h, lf, wr);
 reservoir = createpde(1); % 1 - m , 2 - f
 geometryFromEdges(reservoir,g); % geometryFromEdges for 2-D
 %%
-pdegplot(reservoir,'EdgeLabels','on');
+if figures
+    figure
+    pdegplot(reservoir,'EdgeLabels','on');
+end
 %% generate mesh
 mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);
 % view mesh
-pdemesh(reservoir)
+if figures
+    pdemesh(reservoir)
+end
 %% specify coefficients, boundary conditions, and initial conditions
 % coefficients
 s = get_parameters;
@@ -37,37 +45,44 @@ bc_b = applyBoundaryCondition(reservoir,...
 %%
 % initial conditions
 ic = setInitialConditions(reservoir,s.Pi);
-%% set tlist
+% time in seconds
 tlist = [0:100];
-%%
+% solve pde
 initial_conditions = solvepde(reservoir,tlist);
-%%
-ui = initial_conditions.NodalSolution;
-pdeplot(reservoir,'XYData',ui(:,101),'FaceAlpha',0.5)
-xlim([0 220])
-ylim([0 100])
-colormap gray
-%%
+% plot
+if figures
+    figure
+    ui = initial_conditions.NodalSolution;
+    pdeplot(reservoir,'XYData',ui(:,101),'FaceAlpha',0.5)
+    xlim([0 220])
+    ylim([0 100])
+end
+%% simulate with production
 % boundary conditions
 bc_w = applyBoundaryCondition(reservoir,...
     'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pwf);
+% set duration
 days = 10000;
 tlist = [1:86400:((86400*days))];
+% set initial conditions
 ic = setInitialConditions(reservoir,initial_conditions);
-%% solve pde
+% solve pde
 simulation_results = solvepde(reservoir,tlist);
-%% get solution
+% get solution
 u = simulation_results.NodalSolution;
-%% plot solution
+% plot
 day = 100;
-figure
-pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
-xlim([0 220])
-ylim([0 100])
-%%
-load('lengths.mat');
-days = [0,1,10,500,1000,10000];
-
+if figures
+    figure
+    pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
+    xlim([0 220])
+    ylim([0 100])
+end
+%% post processing
+[mat_l,frac_l] = get_lengths(lm,lf,wr,h); 
+% days = [0,100,1000];
+days = [0:10,10:10:100,100:100:1000];
+step_size = 0.5;
 ca = [];
 cf = [];
 ct = [];
@@ -77,14 +92,14 @@ for day = days
     cfm = 0;
     cam = 0;
     for i = 1:11
-        x = [mat_l(i,1):.5:mat_l(i,2)];
-        y = [0:0.05,49.95,50.05:.5:100];
+        x = [mat_l(i,1):step_size:mat_l(i,2)];
+        y = [0:step_size,mat_l(i,3),mat_l(i,4):step_size:h];
         [X,Y] = meshgrid(x,y);
         if day == 0
             uintrp = ones(size(X)).*s.Pi;
         else
-
             uintrp = interpolateSolution(simulation_results,X,Y,day);
+            % interpolate nan values
             if any([any(uintrp == 0),any(isnan(uintrp)),any(uintrp == inf)]) 
                 nandata = uintrp;
                 xdata=(1:length(nandata))';
@@ -92,8 +107,8 @@ for day = days
             end
         end
         p = reshape(uintrp,size(X));   
-        cfma = s.phim.*rho_mahmood(p,s.T,s.Pc,s.Tc);
-        cama = (1-s.phim).*s.rhos.*langmuir(p,s.PL,s.VL);
+        cfma = s.phim.*s.rhos.*rho_mahmood(p,s.T,s.Pc,s.Tc);
+        cama = (1-s.phim).*langmuir(p,s.PL,s.VL);
         cfms = trapz(y,trapz(x,cfma,2));
         cams = trapz(y,trapz(x,cama,2));
         cfm = cfm + cfms;
@@ -102,13 +117,19 @@ for day = days
     % loop through fracture regions
     cff = 0;
     for i = 1:10
-        x = [mat_l(i,1):.5:mat_l(i,2)];
-        y = [0:0.05,49.95,50.05:.5:100];
+        x = [frac_l(i,1):step_size:frac_l(i,2)];
+        y = [0:step_size,frac_l(i,3),frac_l(i,4):step_size:100];
         [X,Y] = meshgrid(x,y);
         if day == 0
             uintrp = ones(size(X)).*s.Pi;
         else
             uintrp = interpolateSolution(simulation_results,X,Y,day);
+            % interpolate nan values
+            if any([any(uintrp == 0),any(isnan(uintrp)),any(uintrp == inf)]) 
+                nandata = uintrp;
+                xdata=(1:length(nandata))';
+                uintrp = interp1(xdata(~isnan(nandata)),nandata(~isnan(nandata)),xdata);
+            end
         end
         p = reshape(uintrp,size(X));
         cffa = s.phif.*rho_mahmood(p,s.T,s.Pc,s.Tc);
@@ -118,31 +139,30 @@ for day = days
     cf = [cf, cfm+cff];
     ct = [ct, cam+cfm+cff];
 end
-figure
-plot(days,ct)
-title('total')
-figure
-plot(days,ca)
-title('adsorbed')
-figure
-plot(days,cf)
-title('free')
-%%
-
-[X,Y] = meshgrid([20:.05:20.1],[50.05:.5:100]);
-[X,Y] = meshgrid([0:.5:20],[50.05:.5:100]);
-%%
-x = [0:.5:20];
-y = [0:0.5:49.95,50.5:.5:100];
-[X,Y] = meshgrid(x,y);
-day = 1000;
-uintrp = interpolateSolution(simulation_results,X,Y,day);
-v = reshape(uintrp,size(X));
-%%
-figure
-surf(X,Y,v,'LineStyle','none')
-axis equal
-view(0,90)
-colorbar
-%% integrate
-I = trapz(y,trapz(x,v,2));
+% calculate production
+pa = ca(1) - ca;
+pf = cf(1) - cf;
+pt = ct(1) - ct;
+%% plot figures
+if figures
+    figure
+    plot(days,ct)
+    title('total')
+    figure
+    plot(days,ca)
+    title('adsorbed')
+    figure
+    plot(days,cf)
+    title('free')
+    figure
+    plot(days,pt)
+    title('total')
+    figure
+    plot(days,pa)
+    title('adsorbed')
+    figure
+    plot(days,pf)
+    title('free')
+end
+%% save results
+save('results','-v7.3')
