@@ -1,7 +1,7 @@
 function s = get_parameters
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-
+jupt
 % declare reservoir dimensions
 s.t = 500;
 

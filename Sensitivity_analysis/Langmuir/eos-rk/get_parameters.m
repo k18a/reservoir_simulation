@@ -31,8 +31,8 @@ s.Pi = 6101325;
 s.Pwf = 3101325;
 
 % adsorption parameters
-s.VL = 0.2;
-s.PL = 1101325;
+s.VL = 0.196156034;
+s.PL = 1738817.52;
 
 end
 
