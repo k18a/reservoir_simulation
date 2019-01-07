@@ -65,7 +65,7 @@ bc_w = applyBoundaryCondition(reservoir,...
     'dirichlet', 'Edge', [47:88], 'u', s.Pwf);
     %'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pwf);
 % set duration
-days = 20000;
+days = 2000;
 tlist = [1:86400:((86400*days))];
 % set initial conditions
 ic = setInitialConditions(reservoir,initial_conditions);
@@ -79,7 +79,7 @@ if false
 end
 %% plot
 if figures
-    day = 1000;
+    day = 100;
     figure
     pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
     xlim([0 lm*11])
@@ -87,8 +87,8 @@ if figures
 end
 %% post processing
 [mat_l,frac_l] = get_lengths(lm,lf,wr,h); 
-% days = [0,100,1000,5000,10000];
-days = [0:10,15:5:100,150:50:1000,1500:500:10000,10000:1000:20000];
+days = [0,100,1000];
+% days = [0:10,15:5:100,150:50:1000,1500:500:10000,10000:1000:20000];
 step_size = 5;
 ca = [];
 ct = [];
