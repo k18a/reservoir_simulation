@@ -1,0 +1,8 @@
+{Undefined function or variable 'jupt'.
+
+Error in get_parameters (line 4)
+jupt
+
+Error in rsim (line 27)
+s = get_parameters;
+} 
