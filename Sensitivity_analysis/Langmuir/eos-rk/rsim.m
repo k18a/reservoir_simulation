@@ -1,5 +1,5 @@
 %% figures
-figures = true;
+figures = false;
 % figures = false;
 %% define geometry
 lm = 100;
@@ -8,20 +8,20 @@ lf = 0.1;
 wr = 0.05;
 g = geomet(lm, h, lf, wr);
 %% create PDE model
-reservoir = createpde(1); % 1 - m , 2 - f
+reservoir = createpde(1); 
 geometryFromEdges(reservoir,g); % geometryFromEdges for 2-D
 %%
 if figures
     figure
     pdegplot(reservoir,'EdgeLabels','off');
-end
+end 
 %% generate mesh
 mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);
 % view mesh
 if figures
     figure
     pdemesh(reservoir)
-end
+end 
 %% specify coefficients, boundary conditions, and initial conditions
 % coefficients
 s = get_parameters;
@@ -65,7 +65,7 @@ bc_w = applyBoundaryCondition(reservoir,...
     'dirichlet', 'Edge', [47:88], 'u', s.Pwf);
     %'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pwf);
 % set duration
-days = 10000;
+days = 20000;
 tlist = [1:86400:((86400*days))];
 % set initial conditions
 ic = setInitialConditions(reservoir,initial_conditions);
@@ -78,8 +78,8 @@ if false
     save('results','u','-v7.3')
 end
 %% plot
-day = 1000;
 if figures
+    day = 1000;
     figure
     pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
     xlim([0 lm*11])
@@ -87,8 +87,8 @@ if figures
 end
 %% post processing
 [mat_l,frac_l] = get_lengths(lm,lf,wr,h); 
-days = [0,100,1000,5000,10000];
-% days = [0:10,15:5:100,150:50:1000,1500:500:10000];
+% days = [0,100,1000,5000,10000];
+days = [0:10,15:5:100,150:50:1000,1500:500:10000,10000:1000:20000];
 step_size = 5;
 ca = [];
 ct = [];
