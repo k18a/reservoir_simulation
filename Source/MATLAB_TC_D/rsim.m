@@ -1,5 +1,5 @@
 %% figures
-figures = true;
+figures = false;
 % figures = false;
 %% define geometry
 lm = 100;
@@ -78,8 +78,8 @@ if false
     save('results','u','-v7.3')
 end
 %% plot
-if true% figures
-    day = 1000;
+if figures
+    day = 100;
     figure
     pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
     xlim([0 lm*11])
