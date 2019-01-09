@@ -17,4 +17,3 @@ PRinv = s.P0./P;
 
 Na = VL.*exp(-((r.*log(PRinv)).^2));
 end
-

@@ -1,5 +1,5 @@
 %% figures
-figures = false;
+figures = true;
 % figures = false;
 %% define geometry
 lm = 100;
@@ -112,9 +112,9 @@ for day = days
                 uintrp = interp1(xdata(~isnan(nandata)),nandata(~isnan(nandata)),xdata);
             end
         end
-        p = reshape(uintrp,size(X));   
+        p = reshape(uintrp,size(X));
         cfma = s.T.*s.phim.*rho_mahmood(p,s.T,s.Pc,s.Tc);
-        cama = s.T.*(1-s.phim).*adsorbed(p,s.PL,s.VL)./s.rhos;
+        cama = s.T.*(1-s.phim).*adsorbed(p,s.VL,s.PL)./s.rhos;
         cfms = trapz(y,trapz(x,cfma,2));
         cams = trapz(y,trapz(x,cama,2));
         cfm = cfm + cfms;
