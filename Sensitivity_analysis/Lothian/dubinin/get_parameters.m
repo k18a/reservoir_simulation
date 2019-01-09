@@ -1,9 +1,6 @@
 function s = get_parameters
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-jupt
-% declare reservoir dimensions
-s.t = 500;
 
 % declare matrix parameters
 s.phim = 0.01;
@@ -20,19 +17,19 @@ s.fw = 0.1;
 s.rw = 0.1;
 s.re = 100;
 
+% declare reservoir parameters
+s.T = 333.15;
+s.P0 = 14056597.54;
+s.Pi = 6101325;
+s.Pwf = 3101325;
+
 % delcare fluid parameters
 s.Tc = 190.55;
 s.Pc = 4599200;
 s.MW = 16.04e-3;
 
-% declare reservoir parameters
-s.T = 333.15;
-s.Pi = 6101325;
-s.Pwf = 3101325;
-
 % adsorption parameters
-s.VL = 0.189240288;
-s.PL = 1146042.012;
+s.VL = 0.201838;
+s.PL = 7480.577757;
 
 end
-
