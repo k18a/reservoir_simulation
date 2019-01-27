@@ -2,11 +2,8 @@
 figures = true;
 % figures = false;
 %% define geometry
-lm = 100;
-h = 500;
-lf = 0.1;
-wr = 0.05;
-g = geomet(lm, h, lf, wr);
+s = get_parameters;
+g = geomet(s.lx, s.h, s.lf, s.rw);
 %% create PDE model
 reservoir = createpde(1); 
 geometryFromEdges(reservoir,g); % geometryFromEdges for 2-D
@@ -21,7 +18,7 @@ mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);
 if figures
     figure
     pdemesh(reservoir)
-end 
+end
 %% specify coefficients, boundary conditions, and initial conditions
 % coefficients
 s = get_parameters;
@@ -87,7 +84,7 @@ if figures
 end
 %% post processing
 [mat_l,frac_l] = get_lengths(lm,lf,wr,h); 
-days = [0,100,1000];
+days = [0,10,100,500,1000,2000];
 % days = [0:10,15:5:100,150:50:1000,1500:500:10000,10000:1000:20000];
 step_size = 5;
 ca = [];
@@ -114,7 +111,7 @@ for day = days
         end
         p = reshape(uintrp,size(X));   
         cfma = s.T.*s.phim.*rho_mahmood(p,s.T,s.Pc,s.Tc);
-        cama = s.T.*(1-s.phim).*adsorbed(p,s.VL,s.PL)./s.rhos;
+        cama = s.T.*(1-s.phim).*adsorbed(p,s.VL,s.PL).*s.rhos;
         cfms = trapz(y,trapz(x,cfma,2));
         cams = trapz(y,trapz(x,cama,2));
         cfm = cfm + cfms;

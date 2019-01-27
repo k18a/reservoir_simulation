@@ -3,18 +3,21 @@ function s = get_parameters
 %   Detailed explanation goes here
 
 % declare matrix parameters
-s.phim = 0.01;
+s.phim = 0.03;
 s.km = 5e-6*9.869233e-13;
-s.rhos = (1/(.5*1e-3));
+s.rhos = 2257.948;
 
 % declare fracture parameters
-s.phif = 0.05;
+s.phif = 1e-4; % multiply by e04 to accout for width
 s.kf = 1*9.869233e-13*1e-4; % multiply by e04 to accout for width
-s.lx = 20;
-s.fw = 0.1;
+
+% declare geometry
+s.lx = 100;
+s.rw = 0.05;
+s.h = 500;
+s.lf = 0.1;
 
 % declare well inflow parameters
-s.rw = 0.1;
 s.re = 100;
 
 % delcare fluid parameters

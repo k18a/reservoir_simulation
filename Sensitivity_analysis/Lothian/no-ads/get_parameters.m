@@ -7,11 +7,11 @@ s.t = 500;
 
 % declare matrix parameters
 s.phim = 0.01;
-s.km = 5e-6*9.869233e-13;
+s.km = 5e-3*9.869233e-13;
 s.rhos = (1/(.5*1e-3));
 
 % declare fracture parameters
-s.phif = 0.05;
+s.phif = 1e-4;
 s.kf = 1*9.869233e-13*1e-4; % multiply by e04 to accout for width
 s.lx = 20;
 s.fw = 0.1;
