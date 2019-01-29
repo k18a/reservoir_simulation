@@ -2,10 +2,7 @@
 figures = true;
 % figures = false;
 %% define geometry
-lm = 100;
-h = 500;
-lf = 0.1;
-wr = 0.05;
+s = get_parameters;
 g = geomet(lm, h, lf, wr);
 %% create PDE model
 reservoir = createpde(1); 
@@ -114,7 +111,7 @@ for day = days
         end
         p = reshape(uintrp,size(X));
         cfma = s.T.*s.phim.*rho_mahmood(p,s.T,s.Pc,s.Tc);
-        cama = s.T.*(1-s.phim).*adsorbed(p,s.VL,s.PL)./s.rhos;
+        cama = s.T.*(1-s.phim).*adsorbed(p,s.VL,s.PL).*s.rhos;
         cfms = trapz(y,trapz(x,cfma,2));
         cams = trapz(y,trapz(x,cama,2));
         cfm = cfm + cfms;

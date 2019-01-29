@@ -2,11 +2,8 @@
 figures = false;
 % figures = false;
 %% define geometry
-lm = 100;
-h = 500;
-lf = 0.1;
-wr = 0.05;
-g = geomet(lm, h, lf, wr);
+s = get_parameters
+g = geomet(s.lx, s.h, s.lf, s.rw);
 %% create PDE model
 reservoir = createpde(1); 
 geometryFromEdges(reservoir,g); % geometryFromEdges for 2-D
