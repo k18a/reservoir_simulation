@@ -115,7 +115,7 @@ for day = days
         end
         p = reshape(uintrp,size(X));   
         cfma = s.T.*s.phim.*rho_mahmood(p,s.T,s.Pc,s.Tc);
-        cama = s.T.*(1-s.phim).*adsorbed(p,s.VL,s.PL)./s.rhos;
+        cama = s.T.*(1-s.phim).*adsorbed(p,s.VL,s.PL).*s.rhos;
         cfms = trapz(y,trapz(x,cfma,2));
         cams = trapz(y,trapz(x,cama,2));
         cfm = cfm + cfms;
