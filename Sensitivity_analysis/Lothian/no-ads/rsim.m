@@ -3,6 +3,10 @@ figures = false;
 % figures = false;
 %% define geometry
 s = get_parameters;
+lm = s.lx;
+h = s.h;
+lf = s.lf;
+wr = s.rw;
 g = geomet(s.lx, s.h, s.lf, s.rw);
 %% create PDE model
 reservoir = createpde(1); 
@@ -53,7 +57,7 @@ if figures
     figure
     ui = initial_conditions.NodalSolution;
     pdeplot(reservoir,'XYData',ui(:,101),'FaceAlpha',0.5)
-    xlim([0 lm*11])
+    xlim([0 s.lx*11])
     ylim([0 h])
 end
 %% simulate with production
@@ -79,11 +83,11 @@ if figures
     day = 1000;
     figure
     pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
-    xlim([0 lm*11])
+    xlim([0 s.lx*11])
     ylim([0 h])
 end
 %% post processing
-[mat_l,frac_l] = get_lengths(lm,lf,wr,h); 
+[mat_l,frac_l] = get_lengths(s.lx,lf,wr,h); 
 % days = [0,100,1000,5000,10000];
 days = [0:10,15:5:100,150:50:1000,1500:500:10000,10000:1000:20000];
 step_size = 5;

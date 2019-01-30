@@ -3,6 +3,10 @@ figures = false;
 % figures = false;
 %% define geometry
 s = get_parameters;
+lm = s.lx;
+h = s.h;
+lf = s.lf;
+wr = s.rw;
 g = geomet(s.lx, s.h, s.lf, s.rw);
 %% create PDE model
 reservoir = createpde(1); 
