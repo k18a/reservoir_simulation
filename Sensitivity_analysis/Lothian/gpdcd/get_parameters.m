@@ -2,33 +2,33 @@ function s = get_parameters
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
-% declare reservoir dimensions
-s.t = 500;
-
 % declare matrix parameters
-s.phim = 0.01;
-s.km = 5e-6*9.869233e-13;
-s.rhos = (1/(.5*1e-3));
+s.phim = 0.03; % matrix porosity
+s.km = 5e-6*9.869233e-13; % matrix permeability with conversion factor in m^2
+s.rhos = 2257.948; % shale density in kg/cc
 
 % declare fracture parameters
-s.phif = 0.05;
-s.kf = 1*9.869233e-13*1e-4; % multiply by e04 to accout for width
-s.lx = 20;
-s.fw = 0.1;
+s.phif = 1*1e-4; % fracture porosity = 1 multiply by e04 to accout for width 
+s.kf = 1*9.869233e-13*1e-4; % fracture permeability = 1 multiply by e04 to accout for width in m2
+
+% declare geometry
+s.lx = 100; % fracture spacing in x direction in m
+s.rw = 0.05; % well radius in m
+s.h = 500; % reservoir height in m
+s.lf = 0.1; % fracture width in m this number is too large to be pracical but porosity and permeability are adjusted accordingly in m
 
 % declare well inflow parameters
-s.rw = 0.1;
-s.re = 100;
+s.re = 100; % well equivalent radius in m
 
 % delcare fluid parameters
-s.Tc = 190.55;
-s.Pc = 4599200;
-s.MW = 16.04e-3;
+s.Tc = 190.55; % methane critical temperature in K
+s.Pc = 4599200; % methane critical pressure in Pa
+s.MW = 16.04e-3; % methane molecular weight in kg/mol
 
 % declare reservoir parameters
-s.T = 333.15;
-s.Pi = 6101325;
-s.Pwf = 3101325;
+s.T = 333.15; % initial reservoir temperature in K
+s.Pi = 6101325; % initial reservoir pressure in Pa
+s.Pwf = 3101325; % bottom hole pressure in P
 
 % adsorption parameters
 s.VL = 0.186552541;

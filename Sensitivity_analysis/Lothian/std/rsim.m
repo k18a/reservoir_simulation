@@ -1,5 +1,5 @@
 %% figures
-figures = true;
+figures = false;
 % figures = false;
 %% define geometry
 s = get_parameters;

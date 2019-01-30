@@ -17,7 +17,7 @@ if figures
     pdegplot(reservoir,'EdgeLabels','off');
 end 
 %% generate mesh
-mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);
+mesh = generateMesh(reservoir,'Hmax',100,'Hmin',0.05);
 % view mesh
 if figures
     figure
@@ -49,7 +49,7 @@ bc_b = applyBoundaryCondition(reservoir,...
 % initial conditions
 ic = setInitialConditions(reservoir,s.Pi);
 % time in seconds
-tlist = [0:100];
+tlist = [0*:100];
 % solve pde
 initial_conditions = solvepde(reservoir,tlist);
 % plot
