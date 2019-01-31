@@ -49,7 +49,7 @@ bc_b = applyBoundaryCondition(reservoir,...
 % initial conditions
 ic = setInitialConditions(reservoir,s.Pi);
 % time in seconds
-tlist = [0*:100];
+tlist = [0:100];
 % solve pde
 initial_conditions = solvepde(reservoir,tlist);
 % plot
