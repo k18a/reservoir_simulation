@@ -1,8 +1,8 @@
 %% figures
-figures = false;
+figures = true;
 % figures = false;
 %% define geometry
-s = get_parameters
+s = get_parameters;
 lm = s.lx;
 h = s.h;
 lf = s.lf;

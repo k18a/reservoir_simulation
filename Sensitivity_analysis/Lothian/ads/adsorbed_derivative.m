@@ -8,6 +8,6 @@ if any([any(P == 0),any(isnan(P)),any(P == inf)])
     P(isinf(P)) = s.Pi;
 end
 
-Na = (VL.*PL)./(P+PL);
+Na = (VL.*PL)./((P+PL).^2);
 end
 

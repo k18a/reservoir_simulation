@@ -15,6 +15,7 @@ geometryFromEdges(reservoir,g); % geometryFromEdges for 2-D
 if figures
     figure
     pdegplot(reservoir,'EdgeLabels','off');
+    colormap(grey)
 end 
 %% generate mesh
 mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);

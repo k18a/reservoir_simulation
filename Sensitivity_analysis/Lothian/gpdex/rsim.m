@@ -1,5 +1,5 @@
 %% figures
-figures = false;
+figures = true;
 % figures = false;
 %% define geometry
 s = get_parameters;
@@ -17,7 +17,7 @@ if figures
     pdegplot(reservoir,'EdgeLabels','off');
 end 
 %% generate mesh
-mesh = generateMesh(reservoir,'Hmax',100,'Hmin',0.05);
+mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);
 % view mesh
 if figures
     figure
