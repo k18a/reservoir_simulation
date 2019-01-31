@@ -1,7 +1,7 @@
 #!/bin/sh
 # Grid Engine options (lines prefixed with #$)
 #$ -cwd
-#$ -l h_rt=01:00:00
+#$ -l h_rt=04:00:00
 #$ -l h_vmem=40G
 #  These options are:
 #  job name: -N

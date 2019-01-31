@@ -1,5 +1,5 @@
 %% figures
-figures = false;
+figures = true;
 % figures = false;
 %% define geometry
 s = get_parameters;
@@ -40,11 +40,11 @@ coeff = specifyCoefficients(reservoir,'m',0,...
                            'Face',[2:2:20,23:2:41]);
 % boundary conditions
 bc_w = applyBoundaryCondition(reservoir,...
-    'dirichlet', 'Edge', [47:88], 'u', s.Pi);
-    %'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pi);
+    'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pi);
+    %'dirichlet', 'Edge', [47:88], 'u', s.Pi);
 bc_b = applyBoundaryCondition(reservoir,...
-    'neumann', 'Edge', [1:46], 'g', [0], 'q', [0]);
-    %'neumann', 'Edge', [1:46,47:2:67,68:2:88], 'g', [0], 'q', [0]);
+    'neumann', 'Edge', [1:46,47:2:67,68:2:88], 'g', [0], 'q', [0]);
+    %'neumann', 'Edge', [1:46], 'g', [0], 'q', [0]);
 %%
 % initial conditions
 ic = setInitialConditions(reservoir,s.Pi);
