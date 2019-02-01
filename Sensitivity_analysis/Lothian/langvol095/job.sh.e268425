@@ -1,3 +1,0 @@
-MATLAB: management.cpp:671: find: Assertion `' failed.
-MATLAB: management.cpp:671: find: Assertion `' failed.
-/var/spool/gridscheduler/execd/node1h25/job_scripts/268425: line 18: 196290 Aborted                 (core dumped) matlab -nodesktop -nosplash -r "rsim"
