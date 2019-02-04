@@ -2,7 +2,7 @@ function s = get_parameters
 % get parameters for simulation
 
 % declare matrix parameters
-s.phim = 0.03; % matrix porosity
+s.phim = 0.3; % matrix porosity
 s.km = 5e-6*9.869233e-13; % matrix permeability with conversion factor in m^2
 s.rhos = 2257.948; % shale density in kg/cc
 
