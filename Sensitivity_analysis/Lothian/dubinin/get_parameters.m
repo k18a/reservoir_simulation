@@ -31,7 +31,7 @@ s.Pwf = 3101325; % bottom hole pressure in Pa
 
 % adsorption parameters
 s.VL = 0.201838;
-s.PL = 7480.577757^2;
+s.PL = sqrt(7480.577757);
 s.P0 = 12419537.0465;
 
 end
