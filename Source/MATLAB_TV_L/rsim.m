@@ -9,13 +9,12 @@ lf = s.lf;
 wr = s.rw;
 g = geomet(s.lx, s.h, s.lf, s.rw);
 %% create PDE model
-reservoir = createpde(1); 
+reservoir = createpde(2); 
 geometryFromEdges(reservoir,g); % geometryFromEdges for 2-D
 %%
 if figures
     figure
     pdegplot(reservoir,'EdgeLabels','off');
-    colormap(grey)
 end 
 %% generate mesh
 mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);
@@ -41,14 +40,14 @@ coeff = specifyCoefficients(reservoir,'m',0,...
                            'Face',[2:2:20,23:2:41]);
 % boundary conditions
 bc_w = applyBoundaryCondition(reservoir,...
-    'dirichlet', 'Edge', [47:88], 'u', s.Pi);
+    'dirichlet', 'Edge', [47:88], 'u', [s.Pi;s.T]);
     %'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pi);
 bc_b = applyBoundaryCondition(reservoir,...
-    'neumann', 'Edge', [1:46], 'g', [0], 'q', [0]);
+    'neumann', 'Edge', [1:46], 'g', [0;0], 'q', [0;0]);
     %'neumann', 'Edge', [1:46,47:2:67,68:2:88], 'g', [0], 'q', [0]);
 %%
 % initial conditions
-ic = setInitialConditions(reservoir,s.Pi);
+ic = setInitialConditions(reservoir,[s.Pi;s.T]);
 % time in seconds
 tlist = [0:100];
 % solve pde
