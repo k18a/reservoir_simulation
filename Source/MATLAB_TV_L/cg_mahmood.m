@@ -8,6 +8,13 @@ if any([any(P == 0),any(isnan(P)),any(P == inf)])
     P(isnan(P)) = s.Pi;
     P(isinf(P)) = s.Pi;
 end
+
+if any([any(T == 0),any(isnan(T)),any(T == inf)])
+    s = get_parameters;
+    T(T==0) = s.T;
+    T(isnan(T)) = s.T;
+    T(isinf(T)) = s.T;
+end
    
 Pr = P./Pc;
 Tr = T./Tc;

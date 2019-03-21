@@ -18,11 +18,11 @@ if state.time > 100
         mu,pf,s.T,s.Pwf,s.re,s.rw,s.Pc,s.Tc);
 
     f(1,:) = flow_coupling - production;
-    
-    f(2,:) = 0;%-(s.cpg.*rho_mahmood(...
-%         state.u(1,:),state.u(2,:),s.Pc,s.Tc).*s.kf./mu).*(...
-%         state.ux(2,:)+state.uy(2,:));
-    
+    f(2,:) = -(s.cpg.*rho_mahmood(...
+        state.u(1,:),state.u(2,:),s.Pc,s.Tc).*s.kf./mu).*(...
+        state.ux(2,:)+state.uy(2,:));
 end 
+
+
 
 end
