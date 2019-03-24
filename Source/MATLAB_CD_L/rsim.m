@@ -17,7 +17,7 @@ if figures
     pdegplot(reservoir,'EdgeLabels','off');
 end 
 %% generate mesh
-mesh = generateMesh(reservoir,'Hmax',1,'Hmin',0.005);
+mesh = generateMesh(reservoir,'Hmax',100,'Hmin',0.005);
 % view mesh
 if figures
     figure
