@@ -2,27 +2,25 @@
 figures = true;
 % figures = false;
 %% define geometry
-s = get_parameters;
-lm = s.lx;
-h = s.h;
-lf = s.lf;
-wr = s.rw;
-g = geomet(s.lx, s.h, s.lf, s.rw);
+lm = 20;
+h = 100;
+lf = 0.1;
+wr = 0.05;
+g = geomet(lm, h, lf, wr);
 %% create PDE model
-reservoir = createpde(1); 
+reservoir = createpde(1); % 1 - m , 2 - f
 geometryFromEdges(reservoir,g); % geometryFromEdges for 2-D
 %%
 if figures
     figure
-    pdegplot(reservoir,'EdgeLabels','off');
-end 
+    pdegplot(reservoir,'EdgeLabels','on');
+end
 %% generate mesh
 mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);
 % view mesh
 if figures
-    figure
     pdemesh(reservoir)
-end 
+end
 %% specify coefficients, boundary conditions, and initial conditions
 % coefficients
 s = get_parameters;
@@ -41,10 +39,9 @@ coeff = specifyCoefficients(reservoir,'m',0,...
 % boundary conditions
 bc_w = applyBoundaryCondition(reservoir,...
     'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pi);
-    %'dirichlet', 'Edge', [47:88], 'u', s.Pi);
+    %'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pi);
 bc_b = applyBoundaryCondition(reservoir,...
     'neumann', 'Edge', [1:46,47:2:67,68:2:88], 'g', [0], 'q', [0]);
-    %'neumann', 'Edge', [1:46], 'g', [0], 'q', [0]);
 %%
 % initial conditions
 ic = setInitialConditions(reservoir,s.Pi);
@@ -52,21 +49,20 @@ ic = setInitialConditions(reservoir,s.Pi);
 tlist = [0:100];
 % solve pde
 initial_conditions = solvepde(reservoir,tlist);
-%% plot
+% plot
 if figures
     figure
     ui = initial_conditions.NodalSolution;
     pdeplot(reservoir,'XYData',ui(:,101),'FaceAlpha',0.5)
-    xlim([0 lm*11])
-    ylim([0 h])
+    xlim([0 220])
+    ylim([0 100])
 end
 %% simulate with production
 % boundary conditions
 bc_w = applyBoundaryCondition(reservoir,...
-    'dirichlet', 'Edge', [47:88], 'u', s.Pwf);
-    %'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pwf);
+    'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pwf);
 % set duration
-days = 20000;
+days = 10000;
 tlist = [1:86400:((86400*days))];
 % set initial conditions
 ic = setInitialConditions(reservoir,initial_conditions);
@@ -74,24 +70,21 @@ ic = setInitialConditions(reservoir,initial_conditions);
 simulation_results = solvepde(reservoir,tlist);
 % get solution
 u = simulation_results.NodalSolution;
-%% save results
-if false
-    save('results','u','-v7.3')
-end
-%% plot
+% plot
+day = 100;
 if figures
-    day = 1000;
     figure
     pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
-    xlim([0 lm*11])
-    ylim([0 h])
+    xlim([0 220])
+    ylim([0 100])
 end
 %% post processing
 [mat_l,frac_l] = get_lengths(lm,lf,wr,h); 
-% days = [0,100,1000,5000,10000];
-days = [0:10,15:5:100,150:50:1000,1500:500:10000,10000:1000:20000];
-step_size = 5;
+% days = [0,100,1000];
+days = [0:10,10:10:100,100:100:1000];
+step_size = 0.5;
 ca = [];
+cf = [];
 ct = [];
 % loop through days
 for day = days
@@ -114,8 +107,8 @@ for day = days
             end
         end
         p = reshape(uintrp,size(X));   
-        cfma = s.T.*s.phim.*rho_mahmood(p,s.T,s.Pc,s.Tc);
-        cama = s.T.*(1-s.phim).*adsorbed(p,s.VL,s.PL).*s.rhos;
+        cfma = s.phim.*s.rhos.*rho_mahmood(p,s.T,s.Pc,s.Tc);
+        cama = (1-s.phim).*langmuir(p,s.PL,s.VL);
         cfms = trapz(y,trapz(x,cfma,2));
         cams = trapz(y,trapz(x,cama,2));
         cfm = cfm + cfms;
@@ -139,28 +132,37 @@ for day = days
             end
         end
         p = reshape(uintrp,size(X));
-        cffa = s.T.*s.phif.*rho_mahmood(p,s.T,s.Pc,s.Tc);
+        cffa = s.phif.*rho_mahmood(p,s.T,s.Pc,s.Tc);
         cff = trapz(y,trapz(x,cffa,2));
     end
     ca = [ca, cam];
+    cf = [cf, cfm+cff];
     ct = [ct, cam+cfm+cff];
 end
 % calculate production
 pa = ca(1) - ca;
+pf = cf(1) - cf;
 pt = ct(1) - ct;
-%% save
-r = (vertcat(days,ct,ca,pt,pa))';
-csvwrite('production.csv',r)
 %% plot figures
 if figures
     figure
-    hold on
     plot(days,ct)
-    plot(days,ca)
-    title('moles/kg present')
+    title('total')
     figure
-    hold on
+    plot(days,ca)
+    title('adsorbed')
+    figure
+    plot(days,cf)
+    title('free')
+    figure
     plot(days,pt)
+    title('total')
+    figure
     plot(days,pa)
-    title('moles/kg produced')
+    title('adsorbed')
+    figure
+    plot(days,pf)
+    title('free')
 end
+%% save results
+save('results','-v7.3')

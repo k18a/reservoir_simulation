@@ -16,7 +16,7 @@ s.kf = 1*9.869233e-13*1e-7; % fracture permeability = 1 multiply by e04 to accou
 s.lx = 100; % fracture spacing in x direction in m
 s.rw = 0.05; % well radius in m
 s.h = 500; % reservoir height in m
-s.lf = 10; % fracture width in m this number is too large to be pracical but porosity and permeability are adjusted accordingly in m
+s.lf = 100; % fracture width in m this number is too large to be pracical but porosity and permeability are adjusted accordingly in m
 
 % declare well inflow parameters
 s.re = 100; % well equivalent radius in m
