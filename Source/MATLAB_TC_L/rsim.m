@@ -15,10 +15,9 @@ geometryFromEdges(reservoir,g); % geometryFromEdges for 2-D
 if figures
     figure
     pdegplot(reservoir,'EdgeLabels','off');
-    colormap(grey)
 end 
 %% generate mesh
-mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.05);
+mesh = generateMesh(reservoir,'Hmax',10,'Hmin',0.05);
 % view mesh
 if figures
     figure
@@ -81,7 +80,7 @@ if false
 end
 %% plot
 if figures
-    day = 1000;
+    day = 2000;
     figure
     pdeplot(reservoir,'XYData',u(:,day),'FaceAlpha',0.5)
     xlim([0 lm*11])

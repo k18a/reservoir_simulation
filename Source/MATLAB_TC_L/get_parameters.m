@@ -7,14 +7,14 @@ s.km = 5e-6*9.869233e-13; % matrix permeability with conversion factor in m^2
 s.rhos = 2257.948; % shale density in kg/cc
 
 % declare fracture parameters
-s.phif = 1*1e-4; % fracture porosity = 1 multiply by e04 to accout for width 
-s.kf = 1*9.869233e-13*1e-4; % fracture permeability = 1 multiply by e04 to accout for width in m2
+s.phif = 1*1e-7; % fracture porosity = 1 multiply by e04 to accout for width 
+s.kf = 1*9.869233e-13*1e-7; % fracture permeability = 1 multiply by e04 to accout for width in m2
 
 % declare geometry
 s.lx = 100; % fracture spacing in x direction in m
 s.rw = 0.05; % well radius in m
 s.h = 500; % reservoir height in m
-s.lf = 0.1; % fracture width in m this number is too large to be pracical but porosity and permeability are adjusted accordingly in m
+s.lf = 10; % fracture width in m this number is too large to be pracical but porosity and permeability are adjusted accordingly in m
 
 % declare well inflow parameters
 s.re = 100; % well equivalent radius in m
