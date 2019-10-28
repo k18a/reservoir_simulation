@@ -17,19 +17,12 @@ if figures
     pdegplot(reservoir,'EdgeLabels','off');
 end 
 %% generate mesh
-mesh = generateMesh(reservoir,'Hmax',0.1,'Hmin',0.005);
+mesh = generateMesh(reservoir,'Hmax',50,'Hmin',0.005);
 % view mesh
 if figures
     figure
     pdemesh(reservoir)
 end
-%%
-Q = meshQuality(mesh);
-elemIDs = find(Q < 0.8);
-figure
-pdemesh(mesh,'FaceAlpha',0.5)
-hold on
-pdemesh(mesh.Nodes,mesh.Elements(:,elemIDs),'EdgeColor','black')
 %% specify coefficients, boundary conditions, and initial conditions
 % coefficients
 s = get_parameters;
@@ -47,12 +40,11 @@ coeff = specifyCoefficients(reservoir,'m',0,...
                            'Face',[2:2:20,23:2:41]);
 % boundary conditions
 bc_w = applyBoundaryCondition(reservoir,...
-    'dirichlet', 'Edge', [1:88], 'u', [s.Pi;s.T]);
-%     'dirichlet', 'Edge', [47:88], 'u', [s.Pi;s.T]);
-%     %'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pi);
-% bc_b = applyBoundaryCondition(reservoir,...
-%     'neumann', 'Edge', [1:46], 'g', [0;0], 'q', [0;0]);
-%     %'neumann', 'Edge', [1:46,47:2:67,68:2:88], 'g', [0], 'q', [0]);
+    'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', [s.Pi;s.T]);
+    %'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pi);
+bc_b = applyBoundaryCondition(reservoir,...
+    'neumann', 'Edge', [1:46,47:2:67,68:2:88], 'g', [0;0], 'q', [0;0]);
+    %'neumann', 'Edge', [1:46,47:2:67,68:2:88], 'g', [0], 'q', [0]);
 %%
 % initial conditions
 ic = setInitialConditions(reservoir,[s.Pi;s.T]);
@@ -71,10 +63,10 @@ end
 %% simulate with production
 % boundary conditions
 bc_w = applyBoundaryCondition(reservoir,...
-    'dirichlet', 'Edge', [47:88], 'u', s.Pwf);
+    'dirichlet', 'Edge', [47:88], 'u', [s.Pwf;s.T]);
     %'dirichlet', 'Edge', [48:2:66,69:2:87], 'u', s.Pwf);
 % set duration
-days = 2000;
+days = 20000;
 tlist = [1:86400:((86400*days))];
 % set initial conditions
 ic = setInitialConditions(reservoir,initial_conditions);
@@ -96,8 +88,8 @@ if figures
 end
 %% post processing
 [mat_l,frac_l] = get_lengths(lm,lf,wr,h); 
-days = [0,10,100,500,1000,2000];
-% days = [0:10,15:5:100,150:50:1000,1500:500:10000,10000:1000:20000];
+% days = [0,10,100,500,1000,2000];
+days = [0:10,15:5:100,150:50:1000,1500:500:10000,10000:1000:20000];
 step_size = 5;
 ca = [];
 ct = [];
