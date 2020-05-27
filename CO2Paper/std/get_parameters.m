@@ -1,6 +1,6 @@
 function s = get_parameters
 % get parameters for simulation
-s.days = 2000;% days for simulation
+s.day = 2000;% days for simulation
 
 % declare matrix parameters
 s.phim = 0.05; % matrix porosity
