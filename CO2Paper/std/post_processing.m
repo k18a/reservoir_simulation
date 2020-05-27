@@ -11,7 +11,7 @@ wr = s.rw;
 load('results.mat')
 %% post processing
 [mat_l,frac_l] = get_lengths(lm,lf); 
-max_days = 200
+max_days = s.day
 days = linspace(0,max_days);
 % days = [0:10,15:5:100,150:50:1000,1500:500:10000,10000:1000:20000];
 ca = [];
