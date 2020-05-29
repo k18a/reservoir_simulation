@@ -32,7 +32,7 @@ s.Pi = 20101325; % initial reservoir pressure in Pa
 s.Pwf = 3601325; % bottom hole pressure in Pa
 
 % adsorption parameters
-s.isotherm = 'Langmuir';
+s.isotherm = 'Toth';
 s.lk = 1.82e-4; % henry constant in m^3/kg
 s.lq = 3.64E-1; % langmuire volume in mol/kg
 s.lb = 5.91e-4; % langmuir affinity in m^3/mol
