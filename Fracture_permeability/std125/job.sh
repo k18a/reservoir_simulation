@@ -12,7 +12,7 @@
 . /etc/profile.d/modules.sh
 
 # Load MATLAB
-module load matlab/R2019a
+module load matlab/R2018a
 
 # Run the program
 matlab -nodesktop -nosplash -r "rsim"
