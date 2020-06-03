@@ -26,9 +26,7 @@ switch s.isotherm
         Na_ac = (s.tq.*s.tb).*((1+(s.tb.*rho).^(s.tt)).^((-1./s.tt) -1));
 end
 
-Na = max(Na_ac,s.lk);
-
-Ka = Na*s.rhos;
+Ka = Na_ac*s.rhos;
 
 end
 
