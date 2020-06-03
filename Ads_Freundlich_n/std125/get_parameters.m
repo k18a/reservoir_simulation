@@ -15,7 +15,7 @@ s.kf = 1e-19; % fracture permeability = 1
 s.lx = 20; % fracture spacing in x direction in m
 s.rw = 0.05; % well radius in m
 s.hr = 300; % reservoir height in m
-s.hf = 200 % fracture height in m
+s.hf = 200; % fracture height in m
 s.lf = 0.01; % fracture width in m
 
 % declare well inflow parameters
