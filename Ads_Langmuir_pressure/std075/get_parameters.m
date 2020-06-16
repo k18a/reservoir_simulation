@@ -9,7 +9,7 @@ s.rhos = 2.7e3; % shale density in kg/m3
 
 % declare fracture parameters
 s.phif = 1; % fracture porosity = 1 
-s.kf = 1e-19; % fracture permeability = 1 
+s.kf = 1e-14; % fracture permeability = 1 
 
 % declare geometry
 s.lx = 20; % fracture spacing in x direction in m
