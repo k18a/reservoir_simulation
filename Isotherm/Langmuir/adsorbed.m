@@ -24,8 +24,6 @@ switch s.isotherm
         Nm = s.sq.*((s.sb.*rho).^(1./s.sn))./(1+(s.sb.*rho).^(1./s.sn));
     case 'Toth'
         Nm = s.tq.*(s.tb.*rho)./((1+(s.tb.*rho).^(s.tt)).^(1./s.tt));
-    case 'NoAds'
-        Nm = 0;
 end
 
 end
