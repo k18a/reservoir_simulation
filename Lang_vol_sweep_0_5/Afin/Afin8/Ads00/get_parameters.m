@@ -4,7 +4,7 @@ s.day = 3650;% days for simulation
 
 % declare matrix parameters
 s.phim = 0.05; % matrix porosity
-s.km = 5e-19; % matrix permeability with conversion factor in m^2
+s.km = 4.99e-22; % matrix permeability m^2
 s.rhos = 2.7e3; % shale density in kg/m3
 
 % declare fracture parameters
@@ -34,8 +34,8 @@ s.Pwf = 3601325; % bottom hole pressure in Pa
 % adsorption parameters
 s.isotherm = 'Langmuir';
 s.lk = 1.82e-4; % henry constant in m^3/kg
-s.lq = 0; % langmuir volume in mol/kg
-s.lb = 5.91e-4; % langmuir affinity in m^3/mol
+s.lq = 0.00; % langmuir volume in mol/kg
+s.lb = 8e-4; % langmuir affinity in m^3/mol
 s.fk = 1.15e-3; % freundlich constant k in m^3/kg
 s.fn = 1.47; % freundlich heterogeneity constant 
 s.drb = 6.78e-1; % dr beta beta/RT

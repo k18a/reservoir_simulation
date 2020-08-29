@@ -4,7 +4,7 @@ s.day = 3650;% days for simulation
 
 % declare matrix parameters
 s.phim = 0.05; % matrix porosity
-s.km = 5e-18; % matrix permeability with conversion factor in m^2
+s.km = 5e-20; % matrix permeability m^2
 s.rhos = 2.7e3; % shale density in kg/m3
 
 % declare fracture parameters
