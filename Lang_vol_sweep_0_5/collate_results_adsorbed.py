@@ -1,0 +1,11 @@
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+df_collated = pd.DataFrame()
+for root_path, directories, files in os.walk('.'):
+    if r'production.csv' in files:
+        df = pd.read_csv(os.path.join(root_path,'production.csv'),header=None)
+        col = root_path.split('\\')[-2]
+        row = root_path.split('\\')[-1]
+        df_collated.loc[row,col] = df.iloc[-1,4]
+df_collated.to_csv('sweep_results_adsorbed.csv')
