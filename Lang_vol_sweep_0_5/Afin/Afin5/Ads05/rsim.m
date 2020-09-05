@@ -99,7 +99,7 @@ wr = s.rw;
 %% post processing
 [mat_l,frac_l] = get_lengths(lm,lf); 
 max_days = s.day
-days = [0:10,15:5:100,150:50:max_days];
+days = [0,max_days];
 ca = [];
 ct = [];
 % loop through days
@@ -202,3 +202,4 @@ if figures
     title('moles/kg produced')
     savefig('production.fig')
 end
+exit

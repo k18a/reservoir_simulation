@@ -4,7 +4,7 @@ s.day = 3650;% days for simulation
 
 % declare matrix parameters
 s.phim = 0.05; % matrix porosity
-s.km = 5e-21; % matrix permeability m^2
+s.km = 5e-21;
 s.rhos = 2.7e3; % shale density in kg/m3
 
 % declare fracture parameters
@@ -12,10 +12,10 @@ s.phif = 1; % fracture porosity = 1
 s.kf = 1e-14; % fracture permeability = 1 
 
 % declare geometry
-s.lx = 20; % fracture spacing in x direction in m
+s.lx = 20;
 s.rw = 0.05; % well radius in m
 s.hr = 300; % reservoir height in m
-s.hf = 200 % fracture height in m
+s.hf = 200;
 s.lf = 0.01; % fracture width in m
 
 % declare well inflow parameters
@@ -34,8 +34,8 @@ s.Pwf = 3601325; % bottom hole pressure in Pa
 % adsorption parameters
 s.isotherm = 'Langmuir';
 s.lk = 1.82e-4; % henry constant in m^3/kg
-s.lq = 0.10; % langmuir volume in mol/kg
-s.lb = 5.91e-4; % langmuir affinity in m^3/mol
+s.lq = 0.10;
+s.lb = 5.91e-4;
 s.fk = 1.15e-3; % freundlich constant k in m^3/kg
 s.fn = 1.47; % freundlich heterogeneity constant 
 s.drb = 6.78e-1; % dr beta beta/RT
