@@ -12,7 +12,7 @@ s.phif = 1; % fracture porosity = 1
 s.kf = 1e-14; % fracture permeability = 1 
 
 % declare geometry
-s.lx = 50;
+s.lx = 20;
 s.rw = 0.05; % well radius in m
 s.hr = 300; % reservoir height in m
 s.hf = 200;
